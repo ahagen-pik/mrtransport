@@ -11,7 +11,7 @@
 
 toolIEAharmonization <- function(...) {
   fe <- te <- period <- isBunk <- flow <- . <- feIEA <- region <- univocalName <-
-    value <- enService <- harmFactor <- check <- technology  <- NULL
+    value <- enService <- harmFactor <- check <- technology  <- groupingColumns <- NULL
 
   data <- list(...)
   harmonizationYears <- c(1990, 2005, 2010)
@@ -92,6 +92,13 @@ toolIEAharmonization <- function(...) {
     check[, check := (value / loadFactor) * enService * bn * MJtoEJ]
     check[, check := sum(check), by = c("region", "isBunk", "te", "period")][, diff := abs(check - feIEA)]
 
+    #There are no electric vehicles on the road before 2010. Hence, ES demand is zero and the intensity was set to zero.
+    #To avoid having efficiencies near zero in the input data,
+    #we reversed the harmonization for such electric road vehicles.
+    #We left the 2005 value because this year is relevant for the REMIND calibration
+    groupingColumns <- setdiff(names(enIntensity), c("feIEA", "harmFactor", "value"))
+    enIntensity[technology %in% c("BEV", "Hybrid electric") & period > 2005,
+                value := value / harmFactor, by = groupingColumns]
     if (nrow(check[diff > 1e-2]) > 0) {
       stop("There is a problem regarding the Harmonization of the energy intensity data to match IEA energy balances
          final energy")
