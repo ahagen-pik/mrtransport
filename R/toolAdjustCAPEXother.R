@@ -58,7 +58,7 @@ toolAdjustCAPEXother <- function(dt, ISOcountries, yrs, completeData, GDPpcMER, 
   missing250 <- dt[is.na(value) & univocalName == "Motorcycle (>250cc)"]
   missingMoped <- dt[is.na(value) & univocalName == "Moped"]
 
-  # Get values of other vehicle types
+  # Get values of vehicle types which are not NA
   twoW50 <- dt[!is.na(value) & univocalName == "Motorcycle (50-250cc)"]
   twoW50 <- twoW50[, c("region", "technology", "period", "value")]
   setnames(twoW50, "value", "twoW50")
@@ -72,6 +72,8 @@ toolAdjustCAPEXother <- function(dt, ISOcountries, yrs, completeData, GDPpcMER, 
   setnames(twoWmoped, "value", "twoWmoped")
 
   # Assign values of other vehicle types (step by step)
+  # get missing values for Motorcycle (50-250cc) from Motorcycle (>250cc) data and vice versa
+  # combine data from Motorcycle (50-250cc) and (>250cc) to substitute missing Moped data
   missing50 <- merge.data.table(missing50, twoW250, by = c("region", "technology", "period"), all.x = TRUE)
   missing50[, value := twoW250][, twoW250 := NULL]
 
