@@ -38,6 +38,7 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                            "Moped",
                            "Motorcycle (50-250cc)",
                            "Motorcycle (>250cc)",
+                           "Rickshaw",
                            "Passenger Rail",
                            "Walk")
 
@@ -92,7 +93,7 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
   setkey(completeDataSet, region, period, univocalName, technology)
 
   # categories for filtering data
-  categories <- c("trn_pass_road_LDV_4W", "trn_pass_road_LDV_2W", "trn_freight_road",
+  categories <- c("trn_pass_road_LDV_4W", "trn_pass_road_LDV_3W", "trn_pass_road_LDV_2W", "trn_freight_road",
                   "trn_pass", "trn_freight", "trn_pass_road")
 
   findEntries <- function(category, dataTable) {
@@ -110,7 +111,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
       description <- "Energy intensity on technology level. Sources: TRACCS, PSI, UCD, GCAM"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(highResYears)
@@ -178,7 +178,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
       description <- "Annual mileage on technology level. Sources: TRACCS, UCD"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(highResYears)
@@ -303,7 +302,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                       Sources: TRACCS, GCAM"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(highResYears)
@@ -364,7 +362,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                       Sources: UCD, PSI"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(highResYears)
@@ -409,7 +406,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
 
       GDPpcMERmag <- calcOutput("GDPpc",
                                 scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                                naming = "scenario",
                                 aggregate = FALSE,
                                 unit = mrdrivers::toolGetUnitDollar()) |>
         time_interpolate(highResYears)
@@ -456,7 +452,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                      (cars, trucks, busses). Sources: UCD, PSI"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(highResYears)
@@ -522,7 +517,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                       (all other than cars, trucks and busses). Sources: UCD"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(lowResYears)
@@ -575,7 +569,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
 
       GDPpcMERmag <- calcOutput("GDPpc",
                                 scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                                naming = "scenario",
                                 aggregate = FALSE,
                                 unit = mrdrivers::toolGetUnitDollar()) |>
         time_interpolate(lowResYears)
@@ -629,7 +622,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                      (other than cars, trucks, busses). Sources: UCD, PSI"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(lowResYears)
@@ -718,7 +710,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                       Sources: GCAM"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(highResYears)
@@ -777,7 +768,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                       transport modes. Sources: GCAM"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(highResYears)
@@ -826,7 +816,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
                       Sources: GCAM"
       weight <- calcOutput("GDP",
                            scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                           naming = "scenario",
                            average2020 = FALSE,
                            aggregate = FALSE) |>
         time_interpolate(highResYears)
@@ -846,7 +835,6 @@ calcEdgeTransportSAinputs <- function(subtype, SSPscen = "SSP2", IEAharm = TRUE)
 
       GDPpcMERmag <- calcOutput("GDPpc",
                                 scenario = c("SSPs", "SDPs", "SSP2IndiaDEAs"),
-                                naming = "scenario",
                                 aggregate = FALSE,
                                 unit = mrdrivers::toolGetUnitDollar()) |>
         time_interpolate(highResYears)
